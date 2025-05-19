@@ -99,33 +99,6 @@
         "Built": "R 4.5.0; ; 2025-03-31 22:01:34 UTC; unix"
       }
     },
-    "BiocVersion": {
-      "Source": "Bioconductor",
-      "Repository": "https://bioconductor.org/packages/3.21/bioc",
-      "description": {
-        "Package": "BiocVersion",
-        "Version": "3.21.1",
-        "Title": "Set the appropriate version of Bioconductor packages",
-        "Description": "This package provides repository information for the appropriate\n    version of Bioconductor. ",
-        "Authors@R": "c(\n    person(\"Martin\", \"Morgan\", email = \"martin.morgan@roswellpark.org\",\n        role = \"aut\"),\n    person(\"Marcel\", \"Ramos\", email = \"marcel.ramos@sph.cuny.edu\",\n        role = \"ctb\"),\n    person(\"Bioconductor\", \"Package Maintainer\",\n        email  = \"maintainer@bioconductor.org\",\n        role = c(\"ctb\", \"cre\")))",
-        "biocViews": "Infrastructure",
-        "Depends": "R (>= 4.5.0)",
-        "License": "Artistic-2.0",
-        "Encoding": "UTF-8",
-        "RoxygenNote": "6.0.1",
-        "git_url": "https://git.bioconductor.org/packages/BiocVersion",
-        "git_branch": "devel",
-        "git_last_commit": "1e5e5af",
-        "git_last_commit_date": "2024-10-29",
-        "Repository": "Bioconductor 3.21",
-        "Date/Publication": "2024-11-25",
-        "NeedsCompilation": "no",
-        "Packaged": "2024-11-25 20:42:59 UTC; biocbuild",
-        "Author": "Martin Morgan [aut],\n  Marcel Ramos [ctb],\n  Bioconductor Package Maintainer [ctb, cre]",
-        "Maintainer": "Bioconductor Package Maintainer <maintainer@bioconductor.org>",
-        "Built": "R 4.5.0; ; 2024-11-26 12:24:26 UTC; unix"
-      }
-    },
     "DBI": {
       "Source": "CRAN",
       "Repository": "https://cran.rstudio.com",
