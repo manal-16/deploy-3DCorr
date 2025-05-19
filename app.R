@@ -24,8 +24,6 @@ library(RColorBrewer)
 library(fpc)
 library(dbscan)
 library(MatrixModels)
-library(BiocManager)
-BiocManager::install("GWASTools")
 library(GWASTools) ; data(centromeres.hg38)
 
 # working directory -------------------------------------------------------
