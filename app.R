@@ -11,7 +11,7 @@
 # packages --------------------------------------------------------------
 library(shiny)
 library(shinyjs)
-library(shinythemes)
+#library(shinythemes)
 library(shinyalert)
 library(shinycssloaders)
 library(bslib)
