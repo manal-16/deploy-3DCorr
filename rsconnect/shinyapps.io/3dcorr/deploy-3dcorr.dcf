@@ -1,0 +1,10 @@
+name: deploy-3dcorr
+title:
+username: 3dcorr
+account: 3dcorr
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 14780234
+bundleId: 10305378
+url: https://3dcorr.shinyapps.io/deploy-3dcorr/
+version: 1
