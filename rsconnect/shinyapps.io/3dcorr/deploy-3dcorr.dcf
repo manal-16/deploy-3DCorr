@@ -5,6 +5,6 @@ account: 3dcorr
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 14780234
-bundleId: 10305378
+bundleId: 10305637
 url: https://3dcorr.shinyapps.io/deploy-3dcorr/
 version: 1
