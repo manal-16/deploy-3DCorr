@@ -1,0 +1,158 @@
+.header-bar {
+    font-family: 'Times New Roman';
+    background-color: #D9E6F2;
+    padding: 30px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #1F3B73;
+    height: 100px;
+}
+
+.navbar {
+    background-color: #74A9DC !important;
+    font-family: 'Impact' !important;
+    letter-spacing: 2px;
+}
+
+.navbar-default .navbar-nav>li>a {
+    color: #1F3B73;
+}
+
+.navbar-default .navbar-nav>.active>a {
+    color: #D9E6F2 !important;
+}
+
+.section p {
+    padding: 0px 20px;
+    font-family: Georgia;
+    font-size: 15px;
+    text-align: justify;
+}
+
+p {
+    font-family: Georgia;
+    font-size: 15px;
+    text-align: center;
+    margin-bottom: 0px;
+}
+
+footer {
+    font-family: 'Times new Roman';
+    font-size: 18px;
+    padding: 5px 10px;
+    background-color: #D9E6F2;
+    font-weight: bold;
+    color: #1F3B73;
+    position: fixed;
+    bottom: 0;
+    opacity: 70%;
+}
+
+h1 {
+    text-align: center;
+    font-size: 20px;
+    font-family: Impact;
+    font-weight: lighter;
+    color: #1F3B73;
+    letter-spacing: 2px;
+}
+
+.title {
+    border: 3px solid #1F3B73;
+    padding: 50px 40px;
+    margin: 0 auto;
+}
+
+h2 {
+    text-align: center;
+    font-size: 16px;
+    font-weight: normal;
+    font-family: Georgia;
+    font-style: italic;
+}
+
+.section-title {
+    font-weight: bold;
+    margin-top: 0px;
+    font-size: 18px;
+    font-family: Georgia;
+    padding-bottom: 10px;
+}
+
+.sidebar-card {
+    background-color: rgba(217, 230, 242, 0.2);
+    padding: 20px 40px;
+    border: 2px dotted #ddd;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    height: 100%;
+}
+
+.card {
+    border: 2px dotted #ddd;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    height: 100%;
+    background-color: rgba(217, 230, 242, 0.2);
+    padding: 10px 20px;
+}
+
+.main {
+    border: 2px dotted #ddd;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    height: 100%;
+    padding: 10px 20px;
+}
+
+.custom-jelly {
+    background-color: #1F3B73 !important;
+    color: white !important;
+    font-size: 15px !important;
+    font-family: Georgia !important;
+    height: 40px;
+    width: 100%;
+}
+
+h3 {
+    font-family: Impact;
+    font-weight: lighter;
+    font-size: 18px;
+    text-align: left;
+    letter-spacing: 2px;
+    color: #1F3B73;
+}
+
+.progress-bar {
+    background-color: #1F3B73 !important;
+    color: white !important;
+    font-size: 9px !important;
+    font-family: Georgia !important;
+}
+
+.btn-file {
+    background-color: #1F3B73;
+    color: white !important;
+    font-family: Georgia !important;
+    font-size: 12px;
+    height: 40px;
+    width: 70px;
+    padding: 10px 5px;
+    border-radius: 10px;
+}
+
+
+.form-control {
+    font-family: Georgia, serif !important;
+    font-size: 15px;
+    border-radius: 10px;
+    padding: 6px 10px;
+    text-align: center;
+    height: 40px;
+    width: 100%;
+}
+
+.fa-question-circle {
+    margin-left: 8px;
+    color: #1F3B73;
+}
