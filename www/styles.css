@@ -79,6 +79,23 @@ h2 {
     padding-bottom: 10px;
 }
 
+.help-btn {
+    background-color: transparent;
+    color: black;
+    font-size: 10px;
+    margin: auto;
+    padding: 0;
+    margin-left: 5px;
+    cursor: pointer;
+    border-radius: 50%;
+    height: 15px;
+    width: 15px;
+    border: 1px solid black;
+  }
+  .help-btn:hover {
+    text-decoration: underline;
+  }
+
 .sidebar-card {
     background-color: rgba(217, 230, 242, 0.2);
     padding: 20px 40px;
