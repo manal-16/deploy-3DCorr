@@ -19,38 +19,41 @@ source("R/corrComputation.r") # correlation functions
 
 # ui ----------------------------------------------------------------------
 ui = fluidPage(useShinyjs(),
-               includeCSS("www/styles.css"),
+               includeCSS("www/styles.css"), # style
                div(class = "header-bar",
                    HTML("TCM<em>viz</em> &nbsp; &nbsp; &nbsp; Mapping Gene-Gene Transcriptome Correlations in Linear (1D) Chromosomes and Hi-C-Derived (3D) Genomic Views")
-                   ),
+               ),
                
                # Home page         
                page_navbar(nav_panel("Home",
                                      div(class="title",
                                          h1(HTML("Welcome to TCM<em>viz</em>")),
                                          h2("TCMviz is a web server designed to map Gene-Gene Transcriptome Correlations in Linear (1D) Chromosomes and Hi-C-Derived (3D) Genomic Views.")
-                                         ),
+                                     ),
                                      hr(),
                                      div(class="section",
                                          div(class = "section-title", "Overview"),
                                          p("Transcriptome Correlation Maps (TCM) are a new way of visualizing transcriptome data, going beyond simple expression heatmaps by incorporating spatial genome architecture and correlation strength."),
                                          p("TCMviz aims to investigate the complex relationships between the spatial organization of chromosomes and gene expression, with the goal of uncovering epigenetic deregulations associated with tumour progression.")
-                                         ),
+                                     ),
                                      div(class="section",
                                          div(class = "section-title", "Workflow"),
-                                         p("Insert image")
-                                         ),
+                                         #p("Insert image"),
+                                         imageOutput("image") 
+                                     ),
                                      div(class="section",
                                          div(class = "section-title", "Explore functions"),
-                                         p("Module 1: 1D-TCM"),
-                                         p("Module 2: 3D-TCM")
-                                         )
-                                     ),
+                                         p(strong("Module 1:")),
+                                         p("1D-TCM displays transcriptome correlations as barplots arranged by chromosome, offering a linear, genome-wide view that highlights regions of coordinated gene activity and co-expression."),
+                                         p(strong("Module 2:")),
+                                         p("3D-TCM extends this approach by integrating clustering and three-dimensional plotting to detect and characterize transcriptional domains, providing a more comprehensive understanding of spatial gene co-regulation across complex biological contexts.")
+                                     )
+               ),
                
                # 1D-TCM (intrachromosomal study)                           
                nav_panel("1D-TCM",
-                         h3("1D-TCM is ..."),
-                         hr(),
+                         # h3("1D-TCM is ..."),
+                         # hr(),
                          fluidRow(column(width = 3,
                                          div(class="sidebar-card",
                                              actionBttn("run1D",
@@ -58,55 +61,60 @@ ui = fluidPage(useShinyjs(),
                                                         icon = NULL,
                                                         style = "jelly",
                                                         class="custom-jelly"
-                                                        )
                                              )
                                          )
-                                  ),
-                         fluidRow(column(width = 3,
-                                  div(class="sidebar-card",
-                                      div(class = "section-title", fluidRow("1.Data upload", actionButton("showHelp", label = "?", class = "help-btn")
-                                      )),
-                                      fileInput("coord1D",
-                                                p('1D coordinates'),
-                                                accept = ".txt"
-                                                ),
-                                      fileInput("expre1D",
-                                                p('Expression matrix'),
-                                                accept = ".txt"
-                                                ),
-                                      div(class = "section-title", "2.Computation parameters"),
-                                      numericInput("neighboursIntra",
-                                                   p('Number of Close Neighbours: '),
-                                                   10,
-                                                   min = 1,
-                                                   max = 100
-                                                   ),
-                                      br(),
-                                      actionBttn("computeIntra",
-                                                 label = "Start",
-                                                 icon = NULL,
-                                                 style = "jelly",
-                                                 class="custom-jelly"
-                                                 ),
-                                      hr(),
-                                      p("Correlated genes (.csv)"),
-                                      downloadButton("downloadData1D", 
-                                                     p("Download")
-                                      )
-                                      )
-                                  ),
-                                  column(width=9,
-                                  div(class="main",
-                                      fluidRow(column(width=6,
-                                                      uiOutput("selectChromIntra")
-                                                      ),
-                                               column(width = 6)
-                                               ),
-                                      withSpinner(plotlyOutput("map1D"))
-                                      )
-                                  )
-                                  )
                          ),
+                         column(width = 9,
+                                div(class="card",
+                                    HTML("<p><b>1D-TCM</b> displays transcriptome correlations as barplots arranged by chromosome, offering a linear, genome-wide view that highlights regions of coordinated gene activity and co-expression.</p>")
+                                )
+                         )
+                         ),
+                         fluidRow(column(width = 3,
+                                         div(class="sidebar-card",
+                                             div(class = "section-title", fluidRow("1.Data upload", actionButton("showHelp1D", label = "?", class = "help-btn")
+                                             )),
+                                             fileInput("coord1D",
+                                                       p('1D coordinates'),
+                                                       accept = ".txt"
+                                             ),
+                                             fileInput("expre1D",
+                                                       p('Expression matrix'),
+                                                       accept = ".txt"
+                                             ),
+                                             div(class = "section-title", "2.Computation parameters"),
+                                             numericInput("neighboursIntra",
+                                                          p('Number of Close Neighbours: '),
+                                                          10,
+                                                          min = 1,
+                                                          max = 100
+                                             ),
+                                             br(),
+                                             actionBttn("computeIntra",
+                                                        label = "Start",
+                                                        icon = NULL,
+                                                        style = "jelly",
+                                                        class="custom-jelly"
+                                             ),
+                                             hr(),
+                                             p("Correlated genes (.csv)"),
+                                             downloadButton("downloadData1D", 
+                                                            p("Download")
+                                             )
+                                         )
+                         ),
+                         column(width=9,
+                                div(class="main",
+                                    fluidRow(column(width=6,
+                                                    uiOutput("selectChromIntra")
+                                    ),
+                                    column(width = 6)
+                                    ),
+                                    withSpinner(plotlyOutput("map1D"))
+                                )
+                         )
+                         )
+               ),
                
                # 3D-TCM (interchromosomal study)
                nav_panel("3D-TCM",
@@ -119,126 +127,137 @@ ui = fluidPage(useShinyjs(),
                                                         icon = NULL,
                                                         style = "jelly",
                                                         class="custom-jelly"
-                                                        )
-                                             )
-                                         ),
-                                  column(width = 9,
-                                         div(class="card",
-                                             h3("3D-TCM is ...")
                                              )
                                          )
-                                  ),
+                         ),
+                         column(width = 9,
+                                div(class="card",
+                                    HTML("<p><b>3D-TCM</b> integrates clustering and three-dimensional plotting to detect and characterize transcriptional domains, providing a more comprehensive understanding of spatial gene co-regulation across complex biological contexts.</p>")
+                                )
+                         )
+                         ),
                          fluidRow(column(width = 3,
                                          div(class="sidebar-card",
-                                             div(class = "section-title", fluidRow("1.Data upload", actionButton("showHelp", label = "?", class = "help-btn")
+                                             div(class = "section-title", fluidRow("1.Data upload", actionButton("showHelp3D", label = "?", class = "help-btn")
                                              )),
                                              fileInput("coord", 
                                                        p('3D coordinates'),
                                                        accept = ".txt"
-                                                       ),
+                                             ),
                                              fileInput("expre",
                                                        p('Expression matrix'),
                                                        accept = ".txt"
-                                                       ),
+                                             ),
                                              div(class = "section-title", "2.Computation parameters"),
                                              numericInput("neighbours",
                                                           p('Number of Close Neighbours:'),
                                                           20,
                                                           min = 1,
                                                           max = 1000
-                                                          ),
+                                             ),
                                              actionBttn("compute3D",
                                                         label = "Start",
-                                                        icon = NULL,
+                                                        icon = NULL, 
                                                         style = "jelly",
                                                         class="custom-jelly"
-                                                        )
-                                             )
-                                         ),
-                                  column(width = 9,
-                                         div(class="main",
-                                             fluidRow(column(width = 6,
-                                                             uiOutput("selectChromInter")
-                                                             ),
-                                                      column(width = 6,
-                                                             uiOutput("sliderCorr")
-                                                             )
-                                                      ),
-                                             withSpinner(plotlyOutput("plot_corr_color"))
                                              )
                                          )
-                                  ),
+                         ),
+                         column(width = 9,
+                                div(class="main",
+                                    fluidRow(column(width = 6,
+                                                    uiOutput("selectChromInter")
+                                    ),
+                                    column(width = 6,
+                                           uiOutput("sliderCorr")
+                                    )
+                                    ),
+                                    withSpinner(plotlyOutput("plot_corr_color"))
+                                )
+                         )
+                         ),
                          fluidRow(column(width = 3,
                                          div(class="sidebar-card",
                                              div(class = "section-title", "3.Clustering"),
                                              numericInput("minpoints",
                                                           p('MinPoints for DBScan: '),
-                                                          15,
+                                                          11,
                                                           min = 1,
                                                           max = 100
-                                                          ),
-                                             numericInput("distance_group",
-                                                          p('Distance of Circle: '),
-                                                          0.02,
-                                                          min = 0.001,
-                                                          max = 1,
-                                                          step = 0.001
-                                                          ),
+                                             ),
                                              sliderInput("neighbour_factor",
                                                          p('Neighbour Coefficient: '),
                                                          min = 0,
                                                          max = 1,
                                                          step = 0.05,
                                                          value = 0.8
-                                                         ),
+                                             ),
                                              actionBttn("computeCluster",
                                                         label = "Start",
                                                         icon = NULL,
                                                         style = "jelly",
                                                         class="custom-jelly"
-                                                        ),
+                                             ),
                                              hr(),
                                              selectInput("dataset",
                                                          p("Clustering Results (.csv)"),
                                                          choices = c("clusters", "top_clusters")
-                                                         ),
+                                             ),
                                              downloadButton("downloadData", 
                                                             p("Download")
-                                                            )
-                                             )
-                                         ),
-                                  column(width = 9,
-                                         div(class="main",
-                                             fluidRow(column(width=6,
-                                                             uiOutput("selectChromClust")
-                                                             ),
-                                                      column(width = 6,
-                                                             uiOutput("switchHide"),
-                                                             uiOutput("switchView"),
-                                                             )
-                                                      ),
-                                             withSpinner(plotlyOutput("plot"))
                                              )
                                          )
-                                  )
                          ),
+                         column(width = 9,
+                                div(class="main",
+                                    fluidRow(column(width=6,
+                                                    uiOutput("selectChromClust")
+                                    ),
+                                    column(width = 6,
+                                           uiOutput("switchHide"),
+                                           uiOutput("switchView"),
+                                    )
+                                    ),
+                                    withSpinner(plotlyOutput("plot"))
+                                )
+                         )
+                         )
+               ),
                
                # Tutorial
                nav_panel("Tutorial",
-                         h4("Dataset example"),
-                         h4("Import data"),
-                         h4("Data processing"),
-                         h4("Analysis"),
-                         h4("Interpretation")
+                         div(class="section",
+                             div(class = "section-title", "Dataset example"),
+                             p("bladder cancer from
+                           NCBI GEO", tags$a(href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE148079", "Series GSE148079"))
+                            ),
+                         div(class="section",
+                             div(class = "section-title", "Import data"),
+                             p("data format")
+                         ),
+                         div(class="section",
+                             div(class = "section-title", "Data processing"),
+                             p("flamingoR pour coord
+                        trancriptome correlation map
+                           clustering hdbscan")
+                         ),
+                         div(class="section",
+                             div(class = "section-title", "Analysis"),
+                             p("")
+                         ),
+                         div(class="section",
+                             div(class = "section-title", "Interpretation"),
+                             p("")
+                         ),
                ),
                nav_spacer(),
                
                # Contact information
-               nav_panel("Contact",
-                         h4("Contact info"),
-                         h4("GitHub"),
-                         h4("Logo")
-               ),
+               # nav_panel("Contact",
+               #           h4("Contact info"),
+               #           h4("GitHub"),
+               #           h4("Logo")
+               # ),
                footer = tags$footer("How to cite:")
                )
 )
@@ -247,14 +266,13 @@ ui = fluidPage(useShinyjs(),
 # server ------------------------------------------------------------------
 
 server = function(input, output, session) {
-  
+
   # INITIALIZATION
   
   # parameters
   options(shiny.maxRequestSize = 30*1024^2)
-  shinyjs::disable("checkBoxViewLevels")
   
-  hideSpinner("plot_corr_color") # hidden until "draw3D" button pressed
+  hideSpinner("plot_corr_color") 
   hideSpinner("plot")
   hideSpinner("map1D")
   
@@ -266,25 +284,114 @@ server = function(input, output, session) {
   geneExprSing = NULL
   clusters = NULL
   top_clusters = NULL
-  merged=NULL
-  gene_corr_csv=NULL
+  merged = NULL
+  gene_corr_csv = NULL
   
   # reactive value
   geneStartExp = reactiveVal(NULL)
   genePosExp_reactive = reactiveVal(NULL)
   genePosExp_Cluster = reactiveVal()
   
-  observeEvent(input$showHelp, {
-           showModal(modalDialog(
-                title = "Data format",
-                "...",
-                size = "l",
-                easyClose = TRUE
-          ))
-        })
+  # workflow home
+  output$image = renderImage({
+    list(src = "www/workflow.png", height = "100%")
+    }, 
+    deleteFile = FALSE) 
+  
+  # modalDialog 'Data input'
+  observeEvent(input$showHelp1D, {
+    showModal(modalDialog(title = "Data format",
+                          "1D coordinate file",
+                          HTML("<table border='1'>
+                          <thead>
+                          <tr><th>gene_id</th><th>chromosome</th><th>geneStart</th></tr>
+                          </thead>
+                          <tbody>
+                          <tr><td>ENSG00000000003.10</td><td>chrX</td><td>99883667</td></tr>
+                          <tr><td>ENSG00000000005.5</td><td>chrX</td><td>99839799</td></tr>
+                          <tr><td>ENSG0000000419.8</td><td>chr20</td><td>49551404</td></tr>
+                          <tr><td>ENSG0000000457.9</td><td>chr1</td><td>169818772</td></tr>
+                          <tr><td>ENSG0000000460.12</td><td>chr1</td><td>169631245</td></tr>
+                          <tr><td>ENSG0000000938.8</td><td>chr1</td><td>196621008</td></tr>
+                          <tr><td>ENSG000001036.9</td><td>chr6</td><td>143819548</td></tr>
+                          <tr><td>ENSG000001084.6</td><td>chr6</td><td>53362139</td></tr>
+                          <tr><td>ENSG000001167.10</td><td>chr6</td><td>41040684</td></tr>
+                          </tbody>
+                               </table>"
+                               ),
+                          br(),
+                          "Expression matrix file",
+                          HTML("<table border='1'>
+                          <thead>
+                          <tr><th>gene_id</th><th>Tumor_T3</th><th>Tumor_T4</th><th>Tumor_T5</th><th>HT1376_1</th><th>HT1376_2</th><th>RT4_1</th><th>RT4_2</th><th>SCABER_1</th></tr>
+                          </thead>
+                          <tbody>
+                          <tr><td>ENSG00000000003.10</td><td>21.28</td><td>3.25</td><td>6.81</td><td>16.62</td><td>12.23</td><td>57.10</td><td>111.94</td><td>22.86</td></tr>
+                          <tr><td>ENSG00000000005.5</td><td>0.00</td><td>0.00</td><td>0.00</td><td>0.00</td><td>0.00</td><td>0.00</td><td>0.02</td><td>0.00</td></tr>
+                          <tr><td>ENSG0000000419.8</td><td>15.06</td><td>11.42</td><td>13.44</td><td>173.26</td><td>140.47</td><td>103.60</td><td>62.17</td><td>102.00</td></tr>
+                          <tr><td>ENSG0000000457.9</td><td>3.28</td><td>3.16</td><td>2.79</td><td>1.00</td><td>0.73</td><td>6.44</td><td>9.32</td><td>6.48</td></tr>
+                          <tr><td>ENSG0000000460.12</td><td>2.79</td><td>3.13</td><td>4.68</td><td>22.42</td><td>13.05</td><td>6.00</td><td>8.92</td><td>19.08</td></tr>
+                          <tr><td>ENSG0000000938.8</td><td>4.05</td><td>4.34</td><td>5.59</td><td>0.37</td><td>0.23</td><td>1.96</td><td>2.06</td><td>0.22</td></tr>
+                          <tr><td>ENSG0000000971.11</td><td>77.40</td><td>13.08</td><td>25.96</td><td>0.21</td><td>0.18</td><td>158.63</td><td>275.09</td><td>24.72</td></tr>
+                          <tr><td>ENSG0000001036.9</td><td>15.48</td><td>7.65</td><td>9.40</td><td>49.81</td><td>40.41</td><td>44.15</td><td>44.09</td><td>64.52</td></tr>
+                          <tr><td>ENSG0000001084.6</td><td>27.54</td><td>13.05</td><td>4.79</td><td>5.01</td><td>3.92</td><td>157.08</td><td>129.38</td><td>30.44</td></tr>
+                          <tr><td>ENSG0000001167.10</td><td>7.61</td><td>6.36</td><td>7.02</td><td>1.92</td><td>1.69</td><td>35.85</td><td>49.88</td><td>22.31</td></tr>
+                          </tbody>
+                               </table>"
+                               ),
+                          size = "xl",
+                          easyClose = TRUE
+                          )
+              )
+  })
+  
+  observeEvent(input$showHelp3D, {
+    showModal(modalDialog(title = "Data format",
+                          "3D coordinate file",
+                          HTML("<table border='1'>
+                          <thead>
+                          <tr><th>gene_id</th><th>symbol</th><th>chromosome</th><th>x</th><th>y</th><th>z</th></tr>
+                          </thead>
+                          <tbody>
+                          <tr><td>ENSG00000000003.10</td><td>TSPAN6</td><td>X</td><td>0.051577508</td><td>0.1147316438</td><td>0.0363846874</td></tr>
+                          <tr><td>ENSG00000000005.5</td><td>TNMD</td><td>X</td><td>0.053772894</td><td>0.1213233554</td><td>0.0386941595</td></tr>
+                          <tr><td>ENSG0000000419.8</td><td>DPM1</td><td>20</td><td>-0.149840092</td><td>-0.0345255021</td><td>-0.0269464080</td></tr>
+                          <tr><td>ENSG0000000460.12</td><td>C1orf112</td><td>1</td><td>0.055503513</td><td>0.3094019242</td><td>-0.0575361874</td></tr>
+                          <tr><td>ENSG0000000938.8</td><td>FGR</td><td>1</td><td>-0.183064122</td><td>-0.1190236858</td><td>0.1244854546</td></tr>
+                          <tr><td>ENSG0000000971.11</td><td>CFH</td><td>1</td><td>0.155298115</td><td>0.1593384616</td><td>-0.0115371963</td></tr>
+                          <tr><td>ENSG0000001036.9</td><td>FUCA2</td><td>6</td><td>-0.089060681</td><td>-0.1469810759</td><td>0.0454745036</td></tr>
+                          <tr><td>ENSG0000001084.6</td><td>GCLC</td><td>6</td><td>0.021145584</td><td>0.0742497715</td><td>-0.0741587753</td></tr>
+                          <tr><td>ENSG0000001167.10</td><td>NFYA</td><td>6</td><td>0.039597886</td><td>0.1242894061</td><td>-0.1097856644</td></tr>
+                          </tbody>
+                               </table>"
+                               ),
+                          br(),
+                          "Expression matrix file",
+                          HTML("<table border='1'>
+                          <thead>
+                          <tr><th>gene_id</th><th>Tumor_T3</th><th>Tumor_T4</th><th>Tumor_T5</th><th>HT1376_1</th><th>HT1376_2</th><th>RT4_1</th><th>RT4_2</th><th>SCABER_1</th></tr>
+                          </thead>
+                          <tbody>
+                          <tr><td>ENSG00000000003.10</td><td>21.28</td><td>3.25</td><td>6.81</td><td>16.62</td><td>12.23</td><td>57.10</td><td>111.94</td><td>22.86</td></tr>
+                          <tr><td>ENSG00000000005.5</td><td>0.00</td><td>0.00</td><td>0.00</td><td>0.00</td><td>0.00</td><td>0.00</td><td>0.02</td><td>0.00</td></tr>
+                          <tr><td>ENSG0000000419.8</td><td>15.06</td><td>11.42</td><td>13.44</td><td>173.26</td><td>140.47</td><td>103.60</td><td>62.17</td><td>102.00</td></tr>
+                          <tr><td>ENSG0000000457.9</td><td>3.28</td><td>3.16</td><td>2.79</td><td>1.00</td><td>0.73</td><td>6.44</td><td>9.32</td><td>6.48</td></tr>
+                          <tr><td>ENSG0000000460.12</td><td>2.79</td><td>3.13</td><td>4.68</td><td>22.42</td><td>13.05</td><td>6.00</td><td>8.92</td><td>19.08</td></tr>
+                          <tr><td>ENSG0000000938.8</td><td>4.05</td><td>4.34</td><td>5.59</td><td>0.37</td><td>0.23</td><td>1.96</td><td>2.06</td><td>0.22</td></tr>
+                          <tr><td>ENSG0000000971.11</td><td>77.40</td><td>13.08</td><td>25.96</td><td>0.21</td><td>0.18</td><td>158.63</td><td>275.09</td><td>24.72</td></tr>
+                          <tr><td>ENSG0000001036.9</td><td>15.48</td><td>7.65</td><td>9.40</td><td>49.81</td><td>40.41</td><td>44.15</td><td>44.09</td><td>64.52</td></tr>
+                          <tr><td>ENSG0000001084.6</td><td>27.54</td><td>13.05</td><td>4.79</td><td>5.01</td><td>3.92</td><td>157.08</td><td>129.38</td><td>30.44</td></tr>
+                          <tr><td>ENSG0000001167.10</td><td>7.61</td><td>6.36</td><td>7.02</td><td>1.92</td><td>1.69</td><td>35.85</td><td>49.88</td><td>22.31</td></tr>
+                          </tbody>
+                               </table>"
+                               ),
+                          size = "xl",
+                          easyClose = TRUE
+                          )
+              )
+  })
   
   # 1D-TCM
-  
   observeEvent(input$computeIntra, {
     if(is.null(input$coord1D) || is.null(input$expre1D)){
       return(NULL)
@@ -304,11 +411,7 @@ server = function(input, output, session) {
     # correlation 1D 
     geneStartExpr = transcriptomeMap1D(genePos1D, geneExpr1D, n = input$neighboursIntra)
     merged <<- merge(geneStartExpr, genePos1D, by = "row.names")
-    
-    #write.csv2(merged, "test_barplot.csv", row.names = FALSE)
-    
-    
-    
+  
     # update reactive value
     geneStartExp(merged)
   })
@@ -323,10 +426,10 @@ server = function(input, output, session) {
       selected = unique(geneStartExp()$chromosome.x)[1]
     )
   })
-
+  
   output$map1D = renderPlotly({
     req(geneStartExp, input$choosenchrom)
-
+    
     # filter according to chosen chromosome
     geneStartExpChr = subset(geneStartExp(), chromosome.x == input$choosenchrom)
     
@@ -348,7 +451,7 @@ server = function(input, output, session) {
       x = geneStartExpChr$geneStart,
       y = geneStartExpChr$corr1D,
       type = 'bar',
-      name = "Correlation Value"
+      name = "Gene"
     ) %>%
       add_segments(
         x = 0,
@@ -376,7 +479,7 @@ server = function(input, output, session) {
       ) %>%
       layout(
         title = "1D Transcriptome Correlation Map Visualisation",
-        yaxis = list(title = "Correlation Value"),
+        yaxis = list(title = "Transcription Correlation Score"),
         xaxis = list(title = "Gene Range")
       )
   })
@@ -501,7 +604,7 @@ server = function(input, output, session) {
     
     # Clustering
     df <- as.matrix(genePosExp_clu[, 4:6])
-    db <- fpc::dbscan(df, eps = input$distance_group, MinPts = input$minpoints)
+    db <- hdbscan(df, minPts = input$minpoints)
     genePosExp_clu$cluster <- db$cluster
     
     # Filter clusters
@@ -511,38 +614,39 @@ server = function(input, output, session) {
     
     genePosExp_clu = filter(genePosExp_clu,
                             cluster %in% new_d$cluster
-                            ) %>%
+    ) %>%
       arrange(desc(cluster))
     
     # Saving in a csv file the clustering
     cluster_to_file = genePosExp_clu %>%
-      filter(cluster != 0) %>% 		  
+      filter(cluster != 0) %>%
       mutate(k_neighbours = input$neighbours,
              filtrage_facteur_mad = input$neighbour_factor,
-             DBSCAN_minpoints = input$minpoints,
-             DBSCAN_distance = input$distance_group) %>%
-      relocate(k_neighbours, filtrage_facteur_mad, DBSCAN_minpoints, DBSCAN_distance, .before = corr3D)
+             HDBSCAN_minpoints = input$minpoints,
+             #DBSCAN_distance = input$distance_group
+      ) %>%
+      relocate(k_neighbours, filtrage_facteur_mad, HDBSCAN_minpoints, .before = corr3D)
     
     clusters <<- cluster_to_file
     
     data_vars = cluster_to_file %>%
       group_by(cluster) %>%
-      summarise(mean_corr = mean(corr3D), 
-                num_pop = n(), 
+      summarise(mean_corr = mean(corr3D),
+                num_pop = n(),
                 n_chrom = n_distinct(chromosome)
       )
     data_fin = data_vars %>%
       group_by(cluster) %>%
       summarise(score = mean_corr * (num_pop/(max(data_vars$num_pop))) * (n_chrom/(max(data_vars$n_chrom)))
-      ) %>% 
+      ) %>%
       arrange(desc(score))
     
-    data_top_five = data_fin[1:5, ] 
+    data_top_five = data_fin[1:5, ]
     new_my_data = filter(cluster_to_file,
                          cluster %in% data_top_five$cluster
     )
     
-    top_clusters <<- my_new_data
+    top_clusters <<- new_my_data
     
     # Color assignment
     genePosExp_clu = rbind(genePosExp_clu, genePosExp_rest) %>%
@@ -572,7 +676,7 @@ server = function(input, output, session) {
       switchInput(
         inputId = "checkBoxHideGenes",
         label = "Hide non-clustered Genes", 
-        labelWidth = "100%",
+        #labelWidth = "100%",
         value = TRUE
       )
     })
@@ -581,7 +685,7 @@ server = function(input, output, session) {
       switchInput(
         inputId = "checkBoxViewLevels",
         label = "View by correlation level", 
-        labelWidth = "100%"
+        #labelWidth = "100%"
       )
     })
   })
@@ -734,23 +838,23 @@ server = function(input, output, session) {
         arrange(gene_start)
       
       data2 <- reactive({
-    gene_corr_csv
-  })
-  
-  output$downloadData1D <- downloadHandler(
-    filename = function() {
-      paste0("correlatedGenes_", input$choosenchrom, ".csv")
-    },
-    content = function(file) {
-      write.csv2(data2(), file)
-    }
-  )
+        gene_corr_csv
+      })
+      
+      output$downloadData1D <- downloadHandler(
+        filename = function() {
+          paste0("correlatedGenes_", input$choosenchrom, ".csv")
+        },
+        content = function(file) {
+          write.csv2(data2(), file)
+        }
+      )
       # plotly graph
       plot_ly(
         x = geneStartExpChr$geneStart,
         y = geneStartExpChr$corr1D,
         type = 'bar',
-        name = "Correlation Value"
+        name = "Gene"
       ) %>%
         add_segments(
           x = 0,
@@ -778,7 +882,7 @@ server = function(input, output, session) {
         ) %>%
         layout(
           title = "1D Transcriptome Correlation Map Visualisation",
-          yaxis = list(title = "Correlation Value"),
+          yaxis = list(title = "Transcription Correlation Score"),
           xaxis = list(title = "Gene Range")
         )
     })
@@ -787,7 +891,7 @@ server = function(input, output, session) {
   
   # Run example button
   observeEvent(input$run3D, {
-
+    
     print("example10k")
     
     showSpinner("plot_corr_color") # shows spinner
@@ -904,13 +1008,13 @@ server = function(input, output, session) {
     
     # clustering
     df = as.matrix(genePosExp_clu[, 4:6])
-    db = fpc::dbscan(df, eps = input$distance_group, MinPts = input$minpoints)
+    db = hdbscan(df, minPts = input$minpoints)
     genePosExp_clu$cluster = db$cluster
     
     # filter clusters
     new_d <- genePosExp_clu %>%
       count(cluster, name = "gene_in_cluster") %>%
-      filter(gene_in_cluster >= input$minpoints)
+      filter(gene_in_cluster >= input$minpoints) 
     
     genePosExp_clu <- filter(genePosExp_clu, cluster %in% new_d$cluster) %>%
       arrange(desc(cluster))
@@ -920,9 +1024,10 @@ server = function(input, output, session) {
       filter(cluster != 0) %>% 		  
       mutate(k_neighbours = input$neighbours,
              filtrage_facteur_mad = input$neighbour_factor,
-             DBSCAN_minpoints = input$minpoints,
-             DBSCAN_distance = input$distance_group) %>%
-      relocate(k_neighbours, filtrage_facteur_mad, DBSCAN_minpoints, DBSCAN_distance, .before = corr3D)
+             HDBSCAN_minpoints = input$minpoints,
+             #DBSCAN_distance = input$distance_group
+      ) %>%
+      relocate(k_neighbours, filtrage_facteur_mad, HDBSCAN_minpoints, .before = corr3D)
     
     clusters <<- cluster_to_file
     
