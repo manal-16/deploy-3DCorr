@@ -1702,7 +1702,7 @@
     },
     "gdsfmt": {
       "Source": "Bioconductor",
-      "Repository": "https://bioconductor.org/packages/3.21/bioc",
+      "Repository": "https://bioconductor.org/packages/3.20/bioc",
       "description": {
         "Package": "gdsfmt",
         "Type": "Package",
@@ -1725,7 +1725,7 @@
         "git_branch": "RELEASE_3_21",
         "git_last_commit": "8c21dd9",
         "git_last_commit_date": "2025-04-15",
-        "Repository": "Bioconductor 3.21",
+        "Repository": "Bioconductor 3.20",
         "Date/Publication": "2025-04-15",
         "NeedsCompilation": "yes",
         "Packaged": "2025-04-15 21:37:23 UTC; biocbuild",
