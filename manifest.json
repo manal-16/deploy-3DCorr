@@ -262,7 +262,7 @@
         "Description": "Classes for storing very large GWAS data sets and annotation, and functions for GWAS data cleaning and analysis.",
         "Authors@R": "c(\n  person(\"Stephanie M.\", \"Gogarten\", role = \"aut\"),\n  person(\"Cathy\", \"Laurie\", role = \"aut\"),\n  person(\"Tushar\", \"Bhangale\", role = \"aut\"),\n  person(\"Matthew P.\", \"Conomos\", role = \"aut\"),\n  person(\"Cecelia\", \"Laurie\", role = \"aut\"),\n  person(\"Michael\", \"Lawrence\", role = \"aut\"),\n  person(\"Caitlin\", \"McHugh\", role = \"aut\"),\n  person(\"Ian\", \"Painter\", role = \"aut\"),\n  person(\"Xiuwen\", \"Zheng\", role = \"aut\"),\n  person(\"Jess\", \"Shen\", role = \"aut\"),\n  person(\"Rohit\", \"Swarnkar\", role = \"aut\"),\n  person(\"Adrienne\", \"Stilp\", role = \"aut\"),\n  person(\"Sarah\", \"Nelson\", role = \"aut\"),\n  person(\"David\", \"Levine\", role = \"aut\"),\n  person(\"Sonali\", \"Kumari\", role = \"ctb\",\n    comment = \"Converted vignettes from Sweave to RMarkdown / HTML.\"),\n  person(\"Stephanie M.\", \"Gogarten\",\n    email = \"sdmorris@uw.edu\", role = \"cre\"))",
         "Depends": "Biobase",
-        "Imports": "graphics, stats, utils, methods, gdsfmt, DBI, RSQLite,\nGWASExactHW, DNAcopy, survival, sandwich, lmtest, logistf,\nquantsmooth, data.table",
+        "Imports": "graphics, stats, utils, methods, DBI, RSQLite,\nGWASExactHW, DNAcopy, survival, sandwich, lmtest, logistf,\nquantsmooth, data.table",
         "Suggests": "ncdf4, GWASdata, BiocGenerics, RUnit, Biostrings,\nGenomicRanges, IRanges, SNPRelate, snpStats, S4Vectors,\nVariantAnnotation, parallel, BiocStyle, knitr",
         "License": "Artistic-2.0",
         "URL": "https://github.com/smgogarten/GWASTools",
