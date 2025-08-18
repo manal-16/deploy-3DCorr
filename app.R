@@ -228,36 +228,21 @@ ui = fluidPage(useShinyjs(),
                nav_panel("Tutorial",
                          div(class="section",
                              div(class = "section-title", "Dataset example"),
-                             p("bladder cancer from
-                           NCBI GEO", tags$a(href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE148079", "Series GSE148079"))
+                             p("We used the bladder cancer dataset available from the NCBI GEO database (Series accession GSE148079). This dataset provides both RNA-seq expression profiles and Hi-C chromatin interaction data, making it suitable for integrated transcriptome and 3D genome analyses.")
                             ),
                          div(class="section",
                              div(class = "section-title", "Import data"),
-                             p("data format")
+                             p("The datasets were retrieved in standardized formats and imported into R. Expression data were processed to extract TPM (Transcripts Per Million) values, while Hi-C matrices were prepared for 3D coordinate prediction. Data integration ensured compatibility between gene identifiers across both sources.")
                          ),
                          div(class="section",
                              div(class = "section-title", "Data processing"),
-                             p("flamingoR pour coord
-                        trancriptome correlation map
-                           clustering hdbscan")
+                             p("The Hi-C data were transformed into 3D genomic coordinates using the FlamingoR algorithm. These coordinates, combined with expression data, enabled the construction of TCMs, which quantify gene co-expression relative to spatial proximity. Finally, HDBSCAN (Hierarchical Density-Based Spatial Clustering of Applications with Noise) was applied to identify robust gene clusters and chromosomal domains of co-regulated genes.")
                          ),
-                         div(class="section",
-                             div(class = "section-title", "Analysis"),
-                             p("")
-                         ),
-                         div(class="section",
-                             div(class = "section-title", "Interpretation"),
-                             p("")
-                         ),
+                         
                ),
                nav_spacer(),
                
-               # Contact information
-               # nav_panel("Contact",
-               #           h4("Contact info"),
-               #           h4("GitHub"),
-               #           h4("Logo")
-               # ),
+              
                footer = tags$footer("How to cite:")
                )
 )
